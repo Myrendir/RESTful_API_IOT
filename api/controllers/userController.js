@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -23,7 +24,9 @@ exports.user_signup = (req, res, next) => {
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
-                            password: hash
+                            password: hash,
+                            createdAt: new Date(),
+                            updatedAt: null
                         });
                         user
                             .save()
@@ -102,4 +105,67 @@ exports.user_delete = (req, res, next) => {
                 error: err
             });
         });
+};
+
+exports.users_getall = (req, res, next) => {
+    User.find()
+        .select('_id email createdAt')
+        .exec()
+        .then(docs => {
+            const response = {
+                count: docs.length,
+                users: docs.map(doc => {
+                    return {
+                        _id: doc._id,
+                        email: doc.email,
+                        createdAt: doc.createdAt,
+                        request: {
+                            type: 'GET',
+                            url: 'http:localhost:3000/users/' + doc._id
+                        }
+
+                    }
+                })
+            };
+            if (docs.length > 0) {
+                res.status(200).json(response);
+            } else {
+                res.status(404).json({
+                    message: 'No entries found'
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+};
+
+exports.user_getone = (req, res) => {
+    const id = req.params.userId;
+    User.findById(id)
+        .select('_id email password createdAt')
+        .exec()
+        .then(doc => {
+            console.log("From database",doc);
+            if (doc) {
+                res.status(200).json({
+                    user: doc,
+                    request: {
+                        type: 'GET',
+                        url: 'http:localhost:3000/users/' + doc._id
+                    }
+                })
+            } else {
+                res.status(404).json({message : 'No valid entry found for provided ID'});
+            }
+
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: err});
+        });
+
 };

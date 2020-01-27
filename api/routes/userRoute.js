@@ -10,4 +10,8 @@ router.post("/login", UserController.user_login);
 
 router.delete("/:userId", checkAuth, UserController.user_delete);
 
+router.get("/", UserController.users_getall);
+
+router.get("/:userId", UserController.user_getone);
+
 module.exports = router;
