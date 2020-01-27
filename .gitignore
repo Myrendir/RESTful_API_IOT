@@ -159,3 +159,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/linux,macos,windows,phpstorm+all
+node_modules/*

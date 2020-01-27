@@ -1,0 +1,35 @@
+{
+  "name": "restful_api_iot",
+  "version": "1.0.0",
+  "description": "Third project API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Myrendir/RESTful_API_IOT.git"
+  },
+  "keywords": [
+    "RESTful"
+  ],
+  "authors": "Armand Deshais & Baptiste Angot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Myrendir/RESTful_API_IOT/issues"
+  },
+  "homepage": "https://github.com/Myrendir/RESTful_API_IOT#readme",
+  "devDependencies": {
+    "bcrypt": "^3.0.7",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.10",
+    "morgan": "^1.9.1"
+  }
+}
