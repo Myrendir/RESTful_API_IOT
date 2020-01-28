@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 const Admin = require("../models/adminModel");
 
 exports.signup = (req, res, next) => {
@@ -43,5 +42,4 @@ exports.signup = (req, res, next) => {
                 })
             }
         })
-
 };
