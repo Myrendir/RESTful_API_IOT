@@ -4,8 +4,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const userRoute = require('./api/routes/userRoute');
-
+const userRoute = require('./api/routes/userRoute.js');
+const adminRoute = require('./api/routes/adminRoute.js');
 mongoose.connect("mongodb+srv://DevMyrRoot:ac43BgpxAvlm2EP9EheX@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
@@ -32,6 +32,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/users', userRoute);
+app.use('/admin', adminRoute);
+
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;

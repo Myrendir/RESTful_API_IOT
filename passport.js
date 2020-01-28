@@ -1,6 +1,7 @@
 const passport = require('passport');
-const app = require('./app');
-const User = require("../models/userModel");
+const express = require('express');
+const app = express();
+const User = require("./api//models/userModel");
 
 app.use(passport.initialize());
 app.use(passport.session(User));
