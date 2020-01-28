@@ -1,5 +1,6 @@
 {
   "env": {
-    "JWT_KEY": "0EkOkVZ7qET7hBW0qxSr"
+    "JWT_KEY": "0EkOkVZ7qET7hBW0qxSr",
+    "ALTAS_PASSWORD": "ac43BgpxAvlm2EP9EheX"
   }
 }

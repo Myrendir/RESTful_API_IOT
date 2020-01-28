@@ -4,10 +4,9 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
 const userRoute = require('./api/routes/userRoute');
 
-mongoose.connect('mongodb://localhost/Tododb',
+mongoose.connect("mongodb+srv://DevMyrRoot:ac43BgpxAvlm2EP9EheX@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -17,8 +16,6 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({extended: true, limit: '10mb'}));
-
-
 
 
 app.use((req, res, next) => {
