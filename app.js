@@ -31,8 +31,8 @@ app.use(session({
 
 // Passport init
 
-app.use(passport.initialize(''));
-app.use(passport.session(''));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -112,14 +112,14 @@ app.get('/user', function (req, res) {
 app.post('/login',
     passport.authenticate('local'),
     function (req, res) {
-        res.send(req, user);
-    });
-
+        res.send(req.user);
+    }
+);
 app.get('/logout', function (req, res) {
     req.logout();
     res.send(null);
 
-})
+});
 
 app.get('/auth/facebook',
     passport.authenticate('facebook'));
