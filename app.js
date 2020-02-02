@@ -10,6 +10,7 @@ const cors = require('cors');
 const passport = require('passport');
 const userRoute = require('./api/routes/userRoute.js');
 const adminRoute = require('./api/routes/adminRoute.js');
+const error_handler = require('./api/middleware/error_handler');
 mongoose.connect("mongodb+srv://DevMyrRoot:ac43BgpxAvlm2EP9EheX@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
@@ -136,6 +137,8 @@ app.get('/auth/facebook/callback',
 
 app.use('/user', userRoute);
 app.use('/admin', adminRoute);
+
+app.use(error_handler);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
