@@ -14,8 +14,10 @@ const userSchema = mongoose.Schema({
         id: String,
         token: String,
         email: String,
-        name: String
+        name: String,
+
     },
+    role: {type: String, required: true},
     password: {type: String, required: true},
     createdAt: Date,
     updatedAt: Date

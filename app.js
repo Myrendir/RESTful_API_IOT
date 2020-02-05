@@ -9,7 +9,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require('passport');
 const userRoute = require('./api/routes/userRoute.js');
-const adminRoute = require('./api/routes/adminRoute.js');
 const error_handler = require('./api/middleware/error_handler');
 mongoose.connect("mongodb+srv://DevMyrRoot:ac43BgpxAvlm2EP9EheX@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
     {
@@ -68,33 +67,6 @@ passport.use(new LocalStrategy(
     }
 ));
 
-// const FacebookStrategy = require('passport-facebook').Strategy;
-// passport.use(new FacebookStrategy({
-//         clientID: "",
-//         clientSecret: "",
-//         callbackURL: "http://localhost:3000/auth/facebook/callback"
-//     },
-//     function (accessToken, refreshToken, profile, done) {
-//         console.log(profile);
-//         User.findOne({'facebook.id': profile.id}, function (err, user) {
-//             if (err) return done(err);
-//             if (user) return done(null, user);
-//             else {
-//                 const newUser = new User();
-//                 newUser.facebook.id = profile.id;
-//                 newUser.facebook.token = accessToken;
-//                 newUser.facebook.name = profile.displayName;
-//                 if (typeof profile.emails != 'undefined' && profile.emails.length > 0)
-//                     newUser.facebook.email = profile.emails[0].value;
-//                 newUser.save(function (err) {
-//                     if (err) throw err;
-//                     return done(null, newUser);
-//                 });
-//             }
-//         });
-//     }
-// ));
-
 passport.serializeUser(function (user, done) {
     done(null, user._id)
 
@@ -122,21 +94,9 @@ app.get('/logout', function (req, res) {
 
 });
 
-app.get('/auth/facebook',
-    passport.authenticate('facebook'));
-
-
-app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {failureRedirect: '/login'}),
-    function (req, res) {
-        console.log(req.user)
-        res.redirect('/');
-    }
-);
 
 
 app.use('/user', userRoute);
-app.use('/admin', adminRoute);
 
 app.use(error_handler);
 

@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -24,6 +23,7 @@ exports.user_signup = (req, res, next) => {
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
+                            role: req.body.role,
                             password: hash,
                             createdAt: new Date(),
                             updatedAt: null
@@ -149,7 +149,7 @@ exports.user_getone = (req, res) => {
         .select('_id email password createdAt')
         .exec()
         .then(doc => {
-            console.log("From database",doc);
+            console.log("From database", doc);
             if (doc) {
                 res.status(200).json({
                     user: doc,
@@ -159,7 +159,7 @@ exports.user_getone = (req, res) => {
                     }
                 })
             } else {
-                res.status(404).json({message : 'No valid entry found for provided ID'});
+                res.status(404).json({message: 'No valid entry found for provided ID'});
             }
 
         })
