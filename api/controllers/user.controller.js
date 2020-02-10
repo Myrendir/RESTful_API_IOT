@@ -66,7 +66,8 @@ exports.user_login = (req, res, next) => {
                     const token = jwt.sign(
                         {
                             email: user[0].email,
-                            userId: user[0]._id
+                            userId: user[0]._id,
+                            role: user[0].role
                         },
                         process.env.JWT_KEY,
                         {
@@ -109,7 +110,7 @@ exports.user_delete = (req, res, next) => {
 
 exports.users_getall = (req, res, next) => {
     User.find()
-        .select('_id email createdAt')
+        .select('_id email role createdAt')
         .exec()
         .then(docs => {
             const response = {
@@ -118,12 +119,12 @@ exports.users_getall = (req, res, next) => {
                     return {
                         _id: doc._id,
                         email: doc.email,
+                        role: doc.role,
                         createdAt: doc.createdAt,
                         request: {
                             type: 'GET',
                             url: 'http:localhost:3000/users/' + doc._id
                         }
-
                     }
                 })
             };
