@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Myrendir/RESTful_API_IOT#readme",
   "devDependencies": {
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^3.0.8",
     "config": "^3.2.5",
     "config.json": "0.0.4",
     "cookie-parser": "^1.4.4",
