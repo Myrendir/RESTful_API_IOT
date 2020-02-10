@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
-const data_model = require('../models/data.model');
+const data_model = require('../models/data.model.js');
 
 exports.data = (req, res, next) => {
     const Data = new data_model({

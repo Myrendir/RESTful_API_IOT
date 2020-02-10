@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const User = require('./api/models/userModel');
+const User = require('./api/models/user.model');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require('passport');
-const userRoute = require('./api/routes/userRoute.js');
+const userRoute = require('./api/routes/user.route.js');
 const dataRoute = require('./api/routes/data.route');
 const error_handler = require('./api/middleware/error_handler');
 mongoose.connect("mongodb+srv://DevMyrRoot:ac43BgpxAvlm2EP9EheX@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
