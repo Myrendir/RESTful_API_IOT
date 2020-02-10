@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require('passport');
 const userRoute = require('./api/routes/userRoute.js');
+const dataRoute = require('./api/routes/data.route');
 const error_handler = require('./api/middleware/error_handler');
 mongoose.connect("mongodb+srv://DevMyrRoot:ac43BgpxAvlm2EP9EheX@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
     {
@@ -95,8 +96,8 @@ app.get('/logout', function (req, res) {
 });
 
 
-
 app.use('/user', userRoute);
+app.use('/data', dataRoute);
 
 app.use(error_handler);
 
