@@ -2,12 +2,18 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const userRoute = require('./api/routes/user.route.js');
+const dataRoute = require('./api/routes/data.route');
+const error_handler = require('./api/middleware/error_handler');
 
-const userRoute = require('./api/routes/userRoute');
-
-mongoose.connect('mongodb://localhost/Tododb',
+mongoose.connect(
+    "mongodb+srv://"
+    + process.env.MONGO_ATLAS_ID + ":" + process.env.MONGO_ATLAS_PW +
+    "@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -15,10 +21,16 @@ mongoose.connect('mongodb://localhost/Tododb',
 mongoose.Promise = global.Promise;
 app.use(cors());
 app.use(morgan('dev'));
+
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({extended: true, limit: '10mb'}));
+app.use(cookieParser());
 
-
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
 
 
 app.use((req, res, next) => {
@@ -34,7 +46,18 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/users', userRoute);
+
+app.get('/user', function (req, res) {
+    res.send(req.user);
+});
+
+
+
+app.use('/user', userRoute);
+app.use('/data', dataRoute);
+
+app.use(error_handler);
+
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;
