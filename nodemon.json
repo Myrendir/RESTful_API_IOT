@@ -3,6 +3,6 @@
     "MONGO_ATLAS_ID": "MONGO_ATLAS_ID",
     "MONGO_ATLAS_P": "MONGO_ATLAS_PASSWORD",
     "JWT_KEY": "JWT PRIVATE KEY",
-    "secret": "express secre key
+    "secret": "express secret key
   }
 }
