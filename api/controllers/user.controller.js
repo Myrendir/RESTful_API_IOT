@@ -23,7 +23,7 @@ exports.user_signup = (req, res, next) => {
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
-                            role: req.body.role,
+                            role: req.default,
                             password: hash,
                             createdAt: new Date(),
                             updatedAt: null
@@ -172,4 +172,64 @@ exports.user_getone = (req, res) => {
         });
 
 };
-
+exports.user_update = (req, res, next) => {
+    User.findByIdAndUpdate(req.params.userId, req.body)
+        .exec()
+        .then((result) => {
+            if (result) {
+                res.status(200).json({
+                    result,
+                    message: "User updated."
+                })
+            } else {
+                res.status(404).json({
+                    message: "Invalid id"
+                })
+            }
+            console.log(result);
+        }).catch((err) => {
+        res.status(500).json({err})
+    });
+};
+exports.admin_add = (req, res, next) => {
+    User.find({email: req.body.email})
+        .exec()
+        .then(user => {
+            if (user.length >= 1) {
+                return res.status(409).json({
+                    message: "Mail already exists."
+                });
+            } else {
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
+                    if (err) {
+                        return res.status(500).json({
+                            error: err
+                        });
+                    } else {
+                        const user = new User({
+                            _id: new mongoose.Types.ObjectId(),
+                            email: req.body.email,
+                            role: 'admin',
+                            password: hash,
+                            createdAt: new Date(),
+                            updatedAt: null
+                        });
+                        user
+                            .save()
+                            .then(result => {
+                                console.log(result);
+                                res.status(201).json({
+                                    message: "Admin created."
+                                });
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                res.status(500).json({
+                                    error: err
+                                });
+                            });
+                    }
+                });
+            }
+        });
+};
