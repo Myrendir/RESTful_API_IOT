@@ -162,3 +162,5 @@ $RECYCLE.BIN/
 node_modules/*
 .env
 nodemon.json
+!/nodemon.json
+./nodemon.json
