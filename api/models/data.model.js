@@ -3,12 +3,15 @@ mongoose.set('useCreateIndex', true);
 
 const dataSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    positionX: Float64Array,
-    positionY: Float64Array,
-    positionZ: Float64Array,
-    alpha: Float64Array,
-    beta: Float64Array,
-    gamma: Float64Array,
+    x: Number,
+    y: Number,
+    z: Number,
+    positionX: Number,
+    positionY: Number,
+    positionZ: Number,
+    accX: Number,
+    accY: Number,
+    accZ: Number,
     created_at: Date
 });
 

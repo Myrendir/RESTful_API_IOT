@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const User = require("../models/userModel");
+const User = require("../models/user.model");
 
 
 exports.user_signup = (req, res, next) => {
@@ -63,6 +63,7 @@ exports.user_login = (req, res, next) => {
                     });
                 }
                 if (result) {
+                    console.log("[API] " + user[0].role + " connected.");
                     const token = jwt.sign(
                         {
                             email: user[0].email,
@@ -78,6 +79,7 @@ exports.user_login = (req, res, next) => {
                         message: "Auth successful",
                         token: token
                     });
+
                 }
                 res.status(401).json({
                     message: "Auth failed"
@@ -170,3 +172,4 @@ exports.user_getone = (req, res) => {
         });
 
 };
+

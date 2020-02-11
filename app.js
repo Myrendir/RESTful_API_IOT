@@ -1,16 +1,19 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const User = require('./api/models/userModel');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const passport = require('passport');
-const userRoute = require('./api/routes/userRoute.js');
+const userRoute = require('./api/routes/user.route.js');
+const dataRoute = require('./api/routes/data.route');
 const error_handler = require('./api/middleware/error_handler');
-mongoose.connect("mongodb+srv://DevMyrRoot:ac43BgpxAvlm2EP9EheX@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
+
+mongoose.connect(
+    "mongodb+srv://"
+    + process.env.MONGO_ATLAS_ID + ":" + process.env.MONGO_ATLAS_PW +
+    "@cluster0-86rki.mongodb.net/PasTrack?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -29,10 +32,6 @@ app.use(session({
     resave: true
 }));
 
-// Passport init
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -47,56 +46,15 @@ app.use((req, res, next) => {
     next();
 });
 
-const LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(
-    function (email, password, done) {
-        User.getUserByEmail(email, function (err, user) {
-            if (err) throw err;
-            if (!user) {
-                return done(null, false, {message: 'Unknown User.'})
-            }
-            User.comparePassword(password, user.password, function (err, isMatch) {
-                if (err) throw err;
-                if (isMatch) {
-                    return done(null, user)
-                } else {
-                    return done(null, false, {message: 'Invalid Password.'});
-                }
-            });
-        });
-    }
-));
-
-passport.serializeUser(function (user, done) {
-    done(null, user._id)
-
-});
-
-passport.deserializeUser(function (id, done) {
-    User.getUserById(id, function (err, user) {
-        done(err, user);
-    });
-});
 
 app.get('/user', function (req, res) {
     res.send(req.user);
 });
 
-app.post('/login',
-    passport.authenticate('local'),
-    function (req, res) {
-        res.send(req.user);
-    }
-);
-app.get('/logout', function (req, res) {
-    req.logout();
-    res.send(null);
-
-});
-
 
 
 app.use('/user', userRoute);
+app.use('/data', dataRoute);
 
 app.use(error_handler);
 
