@@ -39,3 +39,15 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
 module.exports.getUserById = function (id, callback) {
     User.findById(id, callback);
 };
+
+module.exports.findByToken = function (token, cb) {
+    process.nextTick(function () {
+        for (let i = 0, len = User.length; i < len; i++) {
+            const record = User[i];
+            if (record.token === token) {
+                return cb(null, record);
+            }
+        }
+        return cb(null, null);
+    });
+};
