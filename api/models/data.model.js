@@ -15,4 +15,10 @@ const dataSchema = mongoose.Schema({
     created_at: Date
 });
 
-const Data = module.exports = mongoose.model('Data', dataSchema);
+dataSchema.methods.add = function (name, callback) {
+    this.name = name;
+    return this.save(callback);
+};
+module.exports = mongoose.model('Data', dataSchema);
+
+
