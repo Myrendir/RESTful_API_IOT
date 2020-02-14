@@ -1,8 +1,8 @@
 {
   "env": {
-    "MONGO_ATLAS_ID": "MONGO_ATLAS_ID",
-    "MONGO_ATLAS_P": "MONGO_ATLAS_PASSWORD",
-    "JWT_KEY": "JWT PRIVATE KEY",
-    "secret": "express secret key
+    "MONGO_ATLAS_ID": "DevMyrRoot",
+    "MONGO_ATLAS_PW": "ac43BgpxAvlm2EP9EheX",
+    "JWT_KEY": "0EkOkVZ7qET7hBW0qxSr",
+    "secret": "0EkOkVZ7qET7hBW0qxSr"
   }
 }

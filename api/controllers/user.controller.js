@@ -173,7 +173,8 @@ exports.user_getone = (req, res) => {
 
 };
 exports.user_update = (req, res, next) => {
-    User.findByIdAndUpdate(req.params.userId, req.body)
+    User.findByIdAndUpdate(req.params.userId, req.body, {new: true}
+    )
         .exec()
         .then((result) => {
             if (result) {

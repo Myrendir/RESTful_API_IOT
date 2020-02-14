@@ -2,16 +2,21 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const data_model = require('../models/data.model.js');
+const pos = require('../services/position.data');
 
 exports.data = (req, res, next) => {
     const Data = new data_model({
         _id: new mongoose.Types.ObjectId(),
-        positionX: Float64Array,
-        positionY: Float64Array,
-        positionZ: Float64Array,
-        alpha: Float64Array,
-        beta: Float64Array,
-        gamma: Float64Array,
+        x: req.body.x,
+        y: req.body.y,
+        z: req.body.z,
+        accX: req.body.accX,
+        accY: req.body.accY,
+        accZ: req.body.accZ,
+        positionX: pos(accX),
+        positionY: pos(accY),
+        positionZ: pos(accZ),
+
         created_at: new Date()
     });
     Data
