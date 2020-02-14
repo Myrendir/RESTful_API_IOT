@@ -27,6 +27,7 @@ exports.data = (req, res, next) => {
             positionX: 1.00,
             positionY: 1.00,
             positionZ: 1.00,
+            timestamp: req.body[i]['timestamp'],
             created_at: new Date()
         });
 

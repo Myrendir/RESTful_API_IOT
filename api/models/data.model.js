@@ -12,6 +12,7 @@ const dataSchema = mongoose.Schema({
     accX: Number,
     accY: Number,
     accZ: Number,
+    timestamp: Date,
     created_at: Date
 });
 
